@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0.5em 0;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 1em;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        label {
+
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #66cf0a;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            max-width: 10em;
+            align-self: center;
+            right: -1em;
+            outline: none;
+            border: none;
+            border-radius: 5%;
+            transition: all .5s linear;
+            box-shadow: none;
+        }
+
+        #result {
+            width: 250px;
+            padding: 5px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            border: 0.2em solid springgreen;
+            width: 40em;
+            justify-self: center;
+        }
+
+        .operation{
+            display: flex;
+            justify-content: center;
+        }
+
+        .operation label{
+            margin: 0.5em 0.5em 0.5em 1em;
+        }
+
+        .text{
+            position: relative;
+            left: -1.3em;
+        }
+
+        .text input{
+            position: relative;
+            right: -3.3rem;
+        }
+
+        .shift input{
+            position: relative;
+            right: -0.5em;
+        } 
+
+        .result input{
+            position: relative;
+            right: -2em;
+        }
+
+        /* Effects */
+        button:hover{
+            border-radius: 8%;
+            background-color: #264c06 ;
+        }
+
+    </style>
+    <title>Caesar Cipher Encryption/Decryption</title>
+</head>
+
+
+<body>
+    <h2>Caesar Cipher Encryption/Decryption</h2>
+    <form>
+        <div class="text">
+            <label for="text">Enter Text:</label>
+            <input type="text" id="text" name="text">
+        </div>
+        <div class="shift">
+            <label for="shift">Enter Shift Value:</label>
+            <input type="number" id="shift" name="shift">
+        </div>
+        <div class="operation">
+            <span>Select Operation: </span>
+            <label for="encryption">Encryption</label>
+            <input type="radio" id="encryption" name="operation" value="1">
+            <label for="decryption">Decryption</label>
+            <input type="radio" id="decryption" name="operation" value="2">
+        </div>
+        
+        <button onclick="performOperation()">Encrypt/Decrypt</button>
+        <div class="result">
+            <label for="result">Result:</label>
+            <input type="text" id="result" name="result" readonly value="">
+        </div>
+    </form>
+
+
+    <!-- <script>
+        function performOperation() {
+            // Retrieve form and input values
+            var form = document.forms.cipherForm;
+            var textInput = form.elements.text.value;
+            var shiftInput = form.elements.shift.value;
+            var operationInput = form.elements.operation.value;
+
+
+            //A Javascript Program to illustrate Caesar Cipher Technique
+	
+	        // Encrypts text using a shift on s
+	        function encrypt(text, s){
+                let result=""
+                for (let i = 0; i < text.length; i++)
+                {
+                    let char = text[i];
+                    if (char.toUpperCase(text[i]))
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) + s-65) % 26 + 65);
+                        result += ch;
+                    }
+                    else
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) + s-97) % 26 + 97);
+                        result += ch;
+                    }
+                }
+                return result;
+        	}
+            var en = encrypt(textInput, shiftInput)
+
+            // document.write("Cipher: " + encrypt(textInput, shiftInput) + "<br>");
+
+
+
+            // Update the result field if needed
+            document.getElementById("result").value = en; // Replace with your result value
+        }
+
+    </script> -->
+
+
+    <script>
+        function performOperation() {
+            event.preventDefault();
+            // Retrieve form and input values
+            var form = document.forms[0];
+            var textInput = form.elements.text.value;
+            var shiftInput = parseInt(form.elements.shift.value);
+            var operationInput = form.elements.operation.value;
+
+            // Encrypts text 
+
+            function encrypt(text, s){
+                let result=""
+                for (let i = 0; i < text.length; i++)
+                {
+                    let char = text[i];
+                    if ((char === char.toUpperCase()))
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) + s - 65) % 26 + 65);
+                        result += ch;
+                    }
+                    else
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) + s - 97) % 26 + 97);
+                        result += ch;
+                    }
+                }
+                return result;
+            }
+
+            // Decrypts text
+            function decrypt(text, s) {
+
+                let result=""
+                for (let i = 0; i < text.length; i++)
+                {
+                    let char = text[i];
+                    if ((char === char.toUpperCase()))
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) - s - 65) % 26 + 65);
+                        result += ch;
+                    }
+                    else
+                    {
+                        let ch = String.fromCharCode((char.charCodeAt(0) - s - 97) % 26 + 97);
+                        result += ch;
+                    }
+                }
+                return result;
+            }
+
+
+
+            var encryptedText;
+            if (operationInput === "1") {
+                encryptedText = encrypt(textInput, shiftInput);
+
+            } else if (operationInput === "2") {
+                encryptedText = decrypt(textInput, shiftInput);
+
+            } else {
+                console.error("Invalid operation selected");
+                return;
+            }
+
+            document.getElementById("result").value = encryptedText;
+        }
+    </script>
+</body>
+</html>
