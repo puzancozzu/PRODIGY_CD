@@ -181,43 +181,89 @@
 
             // Encrypts text 
 
-            function encrypt(text, s){
-                let result=""
-                for (let i = 0; i < text.length; i++)
-                {
+            // function encrypt(text, s){
+            //     let result=""
+            //     for (let i = 0; i < text.length; i++)
+            //     {
+            //         let char = text[i];
+            //         if ((char === char.toUpperCase()))
+            //         {
+            //             let ch = String.fromCharCode((char.charCodeAt(0) + s - 65) % 26 + 65);
+            //             result += ch;
+            //         }
+            //         else if ((char === char.toLowerCase()))
+            //         {
+            //             let ch = String.fromCharCode((char.charCodeAt(0) + s - 97) % 26 + 97);
+            //             result += ch;
+            //         }
+
+            //         else{
+            //             result += text[i]
+            //         }
+                 
+            //     }
+            //     return result;
+            // }
+
+            function encrypt(text, s) {
+                let result = "";
+
+                for (let i = 0; i < text.length; i++) {
                     let char = text[i];
-                    if ((char === char.toUpperCase()))
-                    {
-                        let ch = String.fromCharCode((char.charCodeAt(0) + s - 65) % 26 + 65);
+
+                    if (char.match(/[a-zA-Z]/)) {
+            // Encrypt letters
+                        let isUpperCase = char === char.toUpperCase();
+                        let ch = String.fromCharCode((char.charCodeAt(0) + s - (isUpperCase ? 65 : 97)) % 26 + (isUpperCase ? 65 : 97));
                         result += ch;
-                    }
-                    else
-                    {
-                        let ch = String.fromCharCode((char.charCodeAt(0) + s - 97) % 26 + 97);
-                        result += ch;
+                    } else {
+            // Do nothing for digits and special characters, just append them
+                        result += char;
                     }
                 }
+
                 return result;
             }
 
             // Decrypts text
-            function decrypt(text, s) {
+            // function decrypt(text, s) {
 
-                let result=""
-                for (let i = 0; i < text.length; i++)
-                {
+            //     let result=""
+            //     for (let i = 0; i < text.length; i++)
+            //     {
+            //         let char = text[i];
+            //         if ((char === char.toUpperCase()))
+            //         {
+            //             let ch = String.fromCharCode((char.charCodeAt(0) - s - 65) % 26 + 65);
+            //             result += ch;
+            //         }
+            //         else
+            //         {
+            //             let ch = String.fromCharCode((char.charCodeAt(0) - s - 97) % 26 + 97);
+            //             result += ch;
+            //         }
+            //     }
+            //     return result;
+            // }
+
+            function decrypt(text, s) {
+                let result = "";
+
+                for (let i = 0; i < text.length; i++) {
                     let char = text[i];
-                    if ((char === char.toUpperCase()))
-                    {
-                        let ch = String.fromCharCode((char.charCodeAt(0) - s - 65) % 26 + 65);
+
+                    if (char.match(/[a-zA-Z]/)) {
+                        // Encrypt letters
+                        let isUpperCase = char === char.toUpperCase();
+                        let ch = String.fromCharCode((char.charCodeAt(0) - s - (isUpperCase ? 65 : 97)) % 26 + (isUpperCase ? 65 : 97));
                         result += ch;
-                    }
-                    else
-                    {
-                        let ch = String.fromCharCode((char.charCodeAt(0) - s - 97) % 26 + 97);
-                        result += ch;
+                    } 
+                    else {
+                    // Do nothing for digits and special characters, just append them
+                        result += char;
                     }
                 }
+
                 return result;
             }
 

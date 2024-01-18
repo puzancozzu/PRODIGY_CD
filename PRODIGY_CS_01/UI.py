@@ -3,7 +3,7 @@
 
 import tkinter as tk
 from tkinter import font
-from caesar_cipher_algorithm import encrypt, decrypt
+from caesar_cipher_algorithm import encrypt, decrypt, Error
 
 def perform_operation():
 
@@ -12,6 +12,7 @@ def perform_operation():
     shift_value = int(shift_entry.get())
 
     choice = operation_choice.get()
+
 
     if choice == 1:
 
@@ -24,6 +25,10 @@ def perform_operation():
     else:
         result.set("Selete Operation")
 
+### to validate only numeric shift values are accepted
+        
+def validate_input(char, entry_value):
+    return char.isdigit()
 
 ### Title of UI BOX
 root = tk.Tk()
@@ -43,7 +48,11 @@ text_entry.grid(row=0, column=1, padx=20, pady=10)
 shift_label = tk.Label(root, text="Enter Shift Value:", font=custom_font)
 shift_label.grid(row=1, column=0, padx=20, pady=10)
 
-shift_entry = tk.Entry(root)
+validate_cmd = root.register(validate_input)
+
+# shift_entry = tk.Entry(root)
+shift_entry = tk.Entry(root, validate="key", validatecommand=(validate_cmd, '%S', '%P'))
+
 shift_entry.grid(row=1, column=1, padx=20, pady=10)
 
 

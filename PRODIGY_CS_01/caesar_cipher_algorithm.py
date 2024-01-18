@@ -8,10 +8,10 @@
 
 
 ### ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 ### FUNCTION FOR ENCRYPTION 
 def encrypt(text_to_encrypt, shfit_value):
+
+
 
     encrypted_text = ""
 
@@ -23,8 +23,11 @@ def encrypt(text_to_encrypt, shfit_value):
             encrypted_text = encrypted_text + chr((ord(letter) + shfit_value - 97) % 26 + 97)
  
         ## for uppercase characters A = 65
-        else:
+        elif (letter.isupper()):
             encrypted_text += chr((ord(letter) + shfit_value - 65) % 26 + 65)
+
+        else:
+            encrypted_text += letter
 
     return(encrypted_text)
  
@@ -40,9 +43,11 @@ def decrypt(text_to_decrypt, shift_value):
         if (letter.isupper()):
             decrypted_text += chr((ord(letter) - shift_value - 65) % 26 + 65)
 
-        else:
+        elif (letter.islower()):
             decrypted_text += chr((ord(letter) - shift_value - 97) % 26 + 97)
 
+        else:
+            decrypted_text += letter
     return(decrypted_text)
 
 

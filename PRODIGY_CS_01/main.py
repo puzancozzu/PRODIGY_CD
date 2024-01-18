@@ -5,9 +5,11 @@ while(True):
 
     inputted_text = input("\n Enter a Text to be Encrypted/Decrypted : ")
 
-    shift_value = int(input("\n Enter a shift_value for Encryption/Decryption : "))
+    shift_value = int(input("\n Enter a shift_value (number) for Encryption/Decryption : "))
 
     choice = int(input("\n 1: Encryption \n 2: Decryption  \n Enter Your Choice : " ))
+
+
 
     if choice == 1:
 
